@@ -1,13 +1,8 @@
-import { Link } from 'react-router-dom';
-
-const HomePage = () => {
+export default function HomePage() {
   return (
-    <div>
-      <h1>Welcome to E-Commerce</h1>
-      <p>Find products, shop online, and manage your store.</p>
-      <Link to="/products">Browse Products</Link>
-    </div>
+    <main style={{ padding: '1.5rem' }}>
+      <h1>Welcome to the E-Commerce Platform</h1>
+      <p>Browse products, login, and manage your cart.</p>
+    </main>
   );
-};
-
-export default HomePage;
+}

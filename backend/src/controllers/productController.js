@@ -1,115 +1,77 @@
-const prisma = require('../prisma');
+const prisma = require('../utils/prismaClient');
 
-const getProducts = async (req, res) => {
-  const { page = 1, limit = 12, search = '', category } = req.query;
-  const skip = (Number(page) - 1) * Number(limit);
+exports.getProducts = async (req, res) => {
+  const { search, category, sort, page = 1, limit = 12 } = req.query;
+  const filters = [];
 
-  const filters = {
-    where: {
-      AND: [
-        search
-          ? {
-              OR: [
-                { name: { contains: search, mode: 'insensitive' } },
-                { description: { contains: search, mode: 'insensitive' } },
-              ],
-            }
-          : {},
-        category ? { category: { name: category } } : {},
-      ],
-    },
-    include: { category: true },
-    skip,
-    take: Number(limit),
-    orderBy: { createdAt: 'desc' },
-  };
-
-  try {
-    const [products, total] = await Promise.all([
-      prisma.product.findMany(filters),
-      prisma.product.count({ where: filters.where }),
-    ]);
-    return res.json({ products, pagination: { page: Number(page), limit: Number(limit), total } });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Failed to load products' });
+  if (search) {
+    filters.push({
+      OR: [
+        { name: { contains: search, mode: 'insensitive' } },
+        { description: { contains: search, mode: 'insensitive' } }
+      ]
+    });
   }
+
+  if (category) {
+    filters.push({ category: { name: category } });
+  }
+
+  const orderBy = [];
+  if (sort === 'priceAsc') orderBy.push({ price: 'asc' });
+  else if (sort === 'priceDesc') orderBy.push({ price: 'desc' });
+  else orderBy.push({ createdAt: 'desc' });
+
+  const pageNumber = Number(page);
+  const pageSize = Number(limit);
+  const where = filters.length ? { AND: filters } : {};
+
+  const [total, products] = await Promise.all([
+    prisma.product.count({ where }),
+    prisma.product.findMany({
+      where,
+      orderBy,
+      skip: (pageNumber - 1) * pageSize,
+      take: pageSize,
+      include: { category: true }
+    })
+  ]);
+
+  res.json({ items: products, total, page: pageNumber, limit: pageSize });
 };
 
-const getProduct = async (req, res) => {
+exports.getProductById = async (req, res) => {
   const id = Number(req.params.id);
-  try {
-    const product = await prisma.product.findUnique({
-      where: { id },
-      include: { category: true },
-    });
-    if (!product) {
-      return res.status(404).json({ message: 'Product not found' });
-    }
-    return res.json({ product });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Failed to load product' });
+  const product = await prisma.product.findUnique({
+    where: { id },
+    include: { category: true }
+  });
+  if (!product) {
+    return res.status(404).json({ message: 'Product not found.' });
   }
+  res.json({ product });
 };
 
-const createProduct = async (req, res) => {
+exports.createProduct = async (req, res) => {
   const { name, description, price, categoryId, image } = req.body;
-
-  if (!name || price == null) {
-    return res.status(400).json({ message: 'Name and price are required' });
-  }
-
-  try {
-    const product = await prisma.product.create({
-      data: {
-        name,
-        description,
-        price: Number(price),
-        image,
-        category: categoryId ? { connect: { id: Number(categoryId) } } : undefined,
-      },
-      include: { category: true },
-    });
-    return res.status(201).json({ product });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Failed to create product' });
-  }
+  const product = await prisma.product.create({
+    data: { name, description, price: Number(price), image, categoryId: categoryId ? Number(categoryId) : undefined }
+  });
+  res.status(201).json({ product });
 };
 
-const updateProduct = async (req, res) => {
+exports.updateProduct = async (req, res) => {
   const id = Number(req.params.id);
   const { name, description, price, categoryId, image } = req.body;
-
-  try {
-    const product = await prisma.product.update({
-      where: { id },
-      data: {
-        name,
-        description,
-        price: price != null ? Number(price) : undefined,
-        image,
-        category: categoryId ? { connect: { id: Number(categoryId) } } : undefined,
-      },
-      include: { category: true },
-    });
-    return res.json({ product });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Failed to update product' });
-  }
+  const product = await prisma.product.update({
+    where: { id },
+    data: { name, description, price: Number(price), image, categoryId: categoryId ? Number(categoryId) : undefined }
+  });
+  res.json({ product });
 };
 
-const deleteProduct = async (req, res) => {
+exports.deleteProduct = async (req, res) => {
   const id = Number(req.params.id);
-  try {
-    await prisma.product.delete({ where: { id } });
-    return res.json({ message: 'Product deleted' });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Failed to delete product' });
-  }
+  await prisma.product.delete({ where: { id } });
+  res.status(204).end();
 };
-
-module.exports = { getProducts, getProduct, createProduct, updateProduct, deleteProduct };

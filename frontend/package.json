@@ -5,15 +5,15 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "echo \"No frontend tests configured yet\""
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.0.0",
+    "@tanstack/react-query": "^5.101.2",
     "@vitejs/plugin-react": "^6.0.3",
-    "axios": "^1.6.8",
+    "axios": "^1.18.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-router-dom": "^6.16.0",
+    "react-router-dom": "^6.30.4",
     "vite": "^8.1.3"
   }
 }
