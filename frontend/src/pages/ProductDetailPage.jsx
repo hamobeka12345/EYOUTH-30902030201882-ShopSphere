@@ -11,6 +11,8 @@ export default function ProductDetailPage() {
   const [product, setProduct] = useState(null);
   const [status, setStatus] = useState('loading');
   const [quantity, setQuantity] = useState(1);
+  const [addToCartMsg, setAddToCartMsg] = useState('');
+
 
   useEffect(() => {
     setStatus('loading');
@@ -29,7 +31,9 @@ export default function ProductDetailPage() {
     }
     try {
       await addToCart(product.id, quantity);
-      alert('Added to cart');
+      setAddToCartMsg('Added to cart');
+      setTimeout(() => setAddToCartMsg(''), 2000);
+
     } catch (err) {
       alert(err.response?.data?.message || 'Could not add to cart');
     }
@@ -65,9 +69,16 @@ export default function ProductDetailPage() {
             Add to cart
           </button>
         </div>
+
+        {addToCartMsg && (
+          <p className="notice" style={{ marginTop: 12 }}>{addToCartMsg}</p>
+        )}
+
         <p className="product-detail-back">
-          <Link to="/products">Back to products</Link>
+          <Link to="/products" className="btn back-to-products">Back to products</Link>
         </p>
+
+
       </div>
     </div>
   );

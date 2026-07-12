@@ -320,6 +320,104 @@ img {
   margin-bottom: 1rem;
 }
 
+/* ===== Empty Cart ===== */
+.cart-empty-wrapper {
+  margin-top: 1.25rem;
+}
+
+.cart-empty-card {
+  background: #fff;
+  border: 1px solid #e9e9e9;
+  border-radius: 12px;
+  padding: 2rem 1.75rem;
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.04);
+}
+
+.cart-empty-illustration {
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 1rem;
+  position: relative;
+}
+
+.cart-empty-bubble {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #f7f7f7 0%, #ededed 55%, #e3e3e3 100%);
+}
+
+.cart-empty-bubble--2 {
+  width: 38px;
+  height: 38px;
+  left: auto;
+  right: -2px;
+  top: 16px;
+  background: radial-gradient(circle at 30% 30%, #f0f0ff 0%, #e9e9ff 55%, #dedfff 100%);
+}
+
+.cart-empty-bag {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 62px;
+  height: 50px;
+  transform: translate(-50%, -42%);
+  border: 2px solid #cfcfcf;
+  border-radius: 10px;
+  background: linear-gradient(#ffffff, #fafafa);
+}
+
+.cart-empty-bag::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  width: 26px;
+  height: 16px;
+  transform: translateX(-50%);
+  border: 2px solid #cfcfcf;
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  background: transparent;
+}
+
+.cart-empty-title {
+  font-family: Georgia, serif;
+  font-size: 1.7rem;
+  margin-bottom: 0.4rem;
+  color: #2a2a2a;
+}
+
+.cart-empty-text {
+  color: #666;
+  margin: 0 auto 1.25rem;
+  max-width: 48ch;
+  line-height: 1.6;
+}
+
+.cart-empty-cta {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (max-width: 520px) {
+  .cart-empty-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .cart-empty-title {
+    font-size: 1.45rem;
+  }
+}
+
+
 .cart-items {
   display: flex;
   flex-direction: column;
@@ -378,6 +476,20 @@ img {
   justify-content: space-between;
   align-items: center;
 }
+
+/* ===== Empty Products state ===== */
+.no-products-notice {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.no-products-action {
+  white-space: nowrap;
+}
+
 
 .cart-clear {
   padding: 0.5rem 1rem;
@@ -440,6 +552,11 @@ img {
 .product-detail-back {
   margin-top: 1rem;
 }
+
+.back-to-products {
+  text-align: center;
+}
+
 
 /* ===== Pagination ===== */
 .pagination {

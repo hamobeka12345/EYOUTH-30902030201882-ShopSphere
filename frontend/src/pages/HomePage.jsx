@@ -18,7 +18,7 @@ const Img = ({ p }) => {
 export default function HomePage() {
   const products = useQuery({
     queryKey: ['products', 'featured'],
-    queryFn: () => getProducts({ limit: 4 }).then((r) => r.data),
+    queryFn: () => getProducts({ limit: 12 }).then((r) => r.data),
   });
 
   const cats = useQuery({
@@ -42,7 +42,6 @@ export default function HomePage() {
               Explore the collection
             </Link>
           </div>
-          <div className="hero-art" aria-label="Editorial collection artwork" />
         </div>
       </section>
 

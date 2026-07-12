@@ -67,9 +67,21 @@ export default function CartPage() {
     <div className="cart-page">
       <h1>Your Cart</h1>
       {items.length === 0 && (
-        <div>
-          <p>Your cart is empty.</p>
-          <Link to="/products">Browse products</Link>
+        <div className="cart-empty-wrapper">
+          <div className="cart-empty-card" role="status" aria-live="polite">
+            <div className="cart-empty-illustration" aria-hidden="true">
+              <div className="cart-empty-bubble" />
+              <div className="cart-empty-bubble cart-empty-bubble--2" />
+              <div className="cart-empty-bag" />
+            </div>
+
+            <h2 className="cart-empty-title">Your cart is empty</h2>
+            <p className="cart-empty-text">Browse products and add something you love.</p>
+
+            <Link to="/products" className="btn secondary cart-empty-cta">
+              Browse products
+            </Link>
+          </div>
         </div>
       )}
 
