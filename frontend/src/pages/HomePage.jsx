@@ -1,8 +1,7 @@
-export default function HomePage() {
-  return (
-    <main style={{ padding: '1.5rem' }}>
-      <h1>Welcome to the E-Commerce Platform</h1>
-      <p>Browse products, login, and manage your cart.</p>
-    </main>
-  );
-}
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getProducts } from '../services/productService';
+import { getCategories } from '../services/categoryService';
+const Img=({p})=>{const [failed,setFailed]=useState(false);return p.image&&!failed?<img src={p.image} alt={p.name} onError={()=>setFailed(true)}/>:<div className="image-fallback">Morrow</div>};
+export default function HomePage(){const products=useQuery({queryKey:['products','featured'],queryFn:()=>getProducts({limit:4}).then(r=>r.data)});const cats=useQuery({queryKey:['categories'],queryFn:()=>getCategories().then(r=>r.data.items)});return <><section className="hero"><div className="container"><div><div className="eyebrow" style={{color:'#b9c4b2'}}>Thoughtfully selected · 2026</div><h1>Everyday, made considered.</h1><p className="hero-copy">Objects for the home, the desk, and the in-between. A quieter collection for life lived with intention.</p><Link className="btn" to="/products">Explore the collection</Link></div><div className="hero-art" aria-label="Editorial collection artwork"/></div></section><main className="page container"><section><div className="section-head"><div><div className="eyebrow">Shop by feeling</div><h2>Find your corner</h2></div><Link to="/products">View all →</Link></div><div className="category-row">{cats.isLoading&&<span>Loading categories…</span>}{cats.isError&&<span className="notice">Could not load categories.</span>}{cats.data?.map(c=><Link className="category-chip" key={c.id} to={`/products?category=${encodeURIComponent(c.name)}`}>{c.name} <small>({c._count?.products||0})</small></Link>)}</div></section><section style={{marginTop:64}}><div className="section-head"><div><div className="eyebrow">New in the edit</div><h2>Considered essentials</h2></div></div>{products.isLoading&&<div className="loading">Gathering the latest pieces…</div>}{products.isError&&<div className="notice">We couldn’t load featured products. Please refresh and try again.</div>}<div className="product-grid">{products.data?.items?.map(p=><Link className="product-card" to={`/products/${p.id}`} key={p.id}><Img p={p}/><div className="card-body"><div className="eyebrow">{p.category?.name||'Collection'}</div><h3>{p.name}</h3><div className="price">${Number(p.price||0).toFixed(2)}</div></div></Link>)}</div></section></main></>}
