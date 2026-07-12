@@ -35,24 +35,23 @@ export default function ProductDetailPage() {
     }
   };
 
-  if (status === 'loading') return <p style={{ padding: '1.5rem' }}>Loading...</p>;
-  if (status === 'error' || !product) return <p style={{ padding: '1.5rem' }}>Product not found.</p>;
+  if (status === 'loading') return <p className="loading" style={{ padding: '1.5rem' }}>Loading...</p>;
+  if (status === 'error' || !product) return <p className="notice" style={{ padding: '1.5rem' }}>Product not found.</p>;
 
   return (
-    <div style={{ padding: '1.5rem', display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+    <div className="product-detail">
       {product.image && (
         <img
           src={product.image}
           alt={product.name}
-          style={{ width: '320px', height: '320px', objectFit: 'cover', borderRadius: '8px' }}
         />
       )}
-      <div style={{ flex: '1 1 300px' }}>
+      <div className="product-detail-info">
         <h1>{product.name}</h1>
-        {product.category?.name && <p style={{ color: '#555' }}>Category: {product.category.name}</p>}
-        <p style={{ fontWeight: 'bold', fontSize: '1.4rem' }}>${Number(product.price).toFixed(2)}</p>
-        <p>{product.description}</p>
-        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginTop: '1rem' }}>
+        {product.category?.name && <p className="product-detail-category">Category: {product.category.name}</p>}
+        <p className="product-detail-price">${Number(product.price).toFixed(2)}</p>
+        <p className="product-detail-desc">{product.description}</p>
+        <div className="product-detail-actions">
           <label>
             Quantity:{' '}
             <input
@@ -60,14 +59,13 @@ export default function ProductDetailPage() {
               min="1"
               value={quantity}
               onChange={(e) => setQuantity(Math.max(1, Number(e.target.value) || 1))}
-              style={{ width: '60px', padding: '0.3rem' }}
             />
           </label>
-          <button onClick={handleAddToCart} style={{ padding: '0.5rem 1rem', cursor: 'pointer' }}>
+          <button onClick={handleAddToCart}>
             Add to cart
           </button>
         </div>
-        <p style={{ marginTop: '1rem' }}>
+        <p className="product-detail-back">
           <Link to="/products">Back to products</Link>
         </p>
       </div>

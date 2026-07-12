@@ -24,14 +24,14 @@ export default function Header() {
   };
 
   return (
-    <header style={{ padding: '1rem', borderBottom: '1px solid #ddd', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <nav style={{ display: 'flex', gap: '1rem' }}>
+    <header className="header">
+      <nav className="header-nav">
         <Link to='/'>Home</Link>
         <Link to='/products'>Products</Link>
         <Link to='/cart'>Cart{cartCount > 0 ? ` (${cartCount})` : ''}</Link>
         {isAdmin && <Link to='/admin'>Admin</Link>}
       </nav>
-      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+      <div className="header-actions">
         {user ? (
           <>
             <span>Hi, {user.name}</span>

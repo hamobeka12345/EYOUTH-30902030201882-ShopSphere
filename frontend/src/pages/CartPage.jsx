@@ -60,11 +60,11 @@ export default function CartPage() {
     }
   };
 
-  if (status === 'loading') return <p style={{ padding: '1.5rem' }}>Loading cart...</p>;
-  if (status === 'error') return <p style={{ padding: '1.5rem' }}>Could not load cart.</p>;
+  if (status === 'loading') return <p className="loading" style={{ padding: '1.5rem' }}>Loading cart...</p>;
+  if (status === 'error') return <p className="notice" style={{ padding: '1.5rem' }}>Could not load cart.</p>;
 
   return (
-    <div style={{ padding: '1.5rem' }}>
+    <div className="cart-page">
       <h1>Your Cart</h1>
       {items.length === 0 && (
         <div>
@@ -75,35 +75,35 @@ export default function CartPage() {
 
       {items.length > 0 && (
         <>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div className="cart-items">
             {items.map((item) => (
-              <div key={item.id} style={{ display: 'flex', gap: '1rem', border: '1px solid #ddd', padding: '1rem', borderRadius: '8px', alignItems: 'center' }}>
+              <div key={item.id} className="cart-item">
                 {item.product.image && (
-                  <img src={item.product.image} alt={item.product.name} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '6px' }} />
+                  <img src={item.product.image} alt={item.product.name} />
                 )}
-                <div style={{ flex: 1 }}>
-                  <h3 style={{ margin: '0 0 0.25rem' }}>{item.product.name}</h3>
-                  <p style={{ margin: 0 }}>${Number(item.product.price).toFixed(2)} each</p>
+                <div className="cart-item-info">
+                  <h3>{item.product.name}</h3>
+                  <p>${Number(item.product.price).toFixed(2)} each</p>
                 </div>
                 <input
                   type="number"
                   min="1"
                   value={item.quantity}
                   onChange={(e) => handleQty(item.id, Math.max(1, Number(e.target.value) || 1))}
-                  style={{ width: '60px', padding: '0.3rem' }}
+                  className="cart-item-qty"
                 />
-                <p style={{ fontWeight: 'bold', width: '90px', textAlign: 'right' }}>
+                <p className="cart-item-total">
                   ${(item.quantity * item.product.price).toFixed(2)}
                 </p>
-                <button onClick={() => handleRemove(item.id)} style={{ padding: '0.4rem 0.7rem', cursor: 'pointer' }}>
+                <button onClick={() => handleRemove(item.id)} className="cart-item-remove">
                   Remove
                 </button>
               </div>
             ))}
           </div>
 
-          <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <button onClick={handleClear} style={{ padding: '0.5rem 1rem', cursor: 'pointer' }}>
+          <div className="cart-footer">
+            <button onClick={handleClear} className="cart-clear">
               Clear cart
             </button>
             <h2>Total: ${Number(total).toFixed(2)}</h2>
