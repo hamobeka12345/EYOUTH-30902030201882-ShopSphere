@@ -1,34 +1,40 @@
-# Project 1
+# E-Commerce Platform
 
-## Setup Instructions
+Full-stack e-commerce app: Vite + React frontend, Express + Prisma backend, PostgreSQL.
 
-This repository contains three areas:
+## Structure
 
-- `backend/` — Node/Express backend
-- `frontend/` — Vite React frontend
-- root — workspace package files and install helpers
+- `backend/` — Express API (Prisma, JWT auth, Multer uploads)
+- `frontend/` — Vite + React app
+- `prisma/` — schema and migrations
 
-## Installation
-
-From the repository root:
+## Setup
 
 ```bash
-cd project_1
-npm install
+npm install            # root (concurrently + prisma)
+cd backend && npm install
+cd ../frontend && npm install
 ```
 
-Then install each package area separately:
+Make a `.env` at the repo root (see `.env.example`) with `DATABASE_URL`, `JWT_SECRET`, and `PORT`.
+
+Run locally (needs a running PostgreSQL):
 
 ```bash
 cd backend
-npm install
+npx prisma migrate deploy
+npm run seed
+npm run dev
 
-cd ../frontend
-npm install
+cd frontend
+npm run dev
 ```
 
-## Notes
+Or with Docker: `docker compose up --build`. Frontend on :3000, API on :5000.
 
-- The root package no longer contains startup scripts.
-- Use the backend or frontend package folders for runtime commands.
-- If you want to run the project later, add scripts back into the respective `package.json` files.
+## Tests
+
+```bash
+cd backend && npm test      # Jest + Supertest
+cd frontend && npm test     # Vitest + RTL
+```

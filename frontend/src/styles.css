@@ -1,4 +1,4 @@
-/* ===== Reset & Base ===== */
+/* Reset & Base */
 * {
   margin: 0;
   padding: 0;
@@ -32,7 +32,7 @@ img {
   height: auto;
 }
 
-/* ===== Layout ===== */
+/* Layout */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -43,7 +43,7 @@ img {
   padding: 2rem 0;
 }
 
-/* ===== Header ===== */
+/* Header */
 .header {
   padding: 1rem;
   border-bottom: 1px solid #ddd;
@@ -98,7 +98,7 @@ img {
 }
 
 
-/* ===== Hero ===== */
+/* Hero */
 .hero {
   background: #eae6e0;
   padding: 4rem 0;
@@ -132,7 +132,7 @@ img {
   flex-shrink: 0;
 }
 
-/* ===== Section Headers ===== */
+/* Section Headers */
 .section-head {
   display: flex;
   justify-content: space-between;
@@ -153,7 +153,7 @@ img {
   margin-bottom: 0.25rem;
 }
 
-/* ===== Category Row ===== */
+/* Category Row */
 .category-row {
   display: flex;
   flex-wrap: wrap;
@@ -173,7 +173,7 @@ img {
   background: #eee;
 }
 
-/* ===== Product Grid ===== */
+/* Product Grid */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -224,7 +224,7 @@ img {
   letter-spacing: 0.05em;
 }
 
-/* ===== Filters ===== */
+/* Filters */
 .filters {
   display: flex;
   gap: 0.75rem;
@@ -233,7 +233,7 @@ img {
   align-items: flex-end;
 }
 
-/* ===== Form Elements ===== */
+/* Form Elements */
 .field {
   padding: 0.5rem 0.75rem;
   border: 1px solid #ccc;
@@ -252,7 +252,7 @@ img {
   width: 100%;
 }
 
-/* ===== Buttons ===== */
+/* Buttons */
 .btn {
   display: inline-block;
   padding: 0.6rem 1.4rem;
@@ -300,7 +300,7 @@ img {
   padding: 0;
 }
 
-/* ===== Auth Page ===== */
+/* Auth Page */
 .auth {
   max-width: 400px;
   margin: 2rem auto;
@@ -311,7 +311,7 @@ img {
   margin-bottom: 1rem;
 }
 
-/* ===== Cart Page ===== */
+/* Cart Page */
 .cart-page {
   padding: 1.5rem;
 }
@@ -320,7 +320,7 @@ img {
   margin-bottom: 1rem;
 }
 
-/* ===== Empty Cart ===== */
+/* Empty Cart */
 .cart-empty-wrapper {
   margin-top: 1.25rem;
 }
@@ -477,7 +477,7 @@ img {
   align-items: center;
 }
 
-/* ===== Empty Products state ===== */
+/* Empty Products state */
 .no-products-notice {
   display: flex;
   gap: 1rem;
@@ -496,7 +496,7 @@ img {
   cursor: pointer;
 }
 
-/* ===== Product Detail ===== */
+/* Product Detail */
 .product-detail {
   padding: 1.5rem;
   display: flex;
@@ -558,7 +558,7 @@ img {
 }
 
 
-/* ===== Pagination ===== */
+/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
@@ -570,7 +570,7 @@ img {
   padding: 12px;
 }
 
-/* ===== Status Messages ===== */
+/* Status Messages */
 .loading {
   padding: 2rem 0;
   color: #888;
@@ -584,7 +584,7 @@ img {
   margin: 0.5rem 0;
 }
 
-/* ===== Admin Page ===== */
+/* Admin Page */
 .admin-grid {
   display: grid;
   grid-template-columns: 1fr 2fr;
