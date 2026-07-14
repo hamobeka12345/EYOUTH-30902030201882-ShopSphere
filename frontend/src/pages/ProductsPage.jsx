@@ -1,6 +1,6 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { getProducts } from '../services/productService';
 import { getCategories } from '../services/categoryService';
 
@@ -13,12 +13,31 @@ const Img = ({ p }) => {
   );
 };
 
+// Derive how many product cards fit the visible area so the rest is paginated.
+// Columns come from the live grid track count; rows from the viewport height.
+function getPageSize(grid) {
+  if (!grid) return 8;
+  const cs = getComputedStyle(grid);
+  const columns = cs.gridTemplateColumns.split(' ').filter(Boolean).length || 1;
+  const rowGap = parseFloat(cs.rowGap) || 24;
+  const card = grid.querySelector('.product-card');
+  const cardHeight = card ? card.getBoundingClientRect().height : 280;
+  const top = grid.getBoundingClientRect().top;
+  // Reserve space below the grid for pagination controls + bottom margin.
+  const available = window.innerHeight - top - 120;
+  const rows = Math.max(1, Math.floor((available + rowGap) / (cardHeight + rowGap)));
+  return Math.max(1, columns * rows);
+}
+
 export default function ProductsPage() {
   const [params, setParams] = useSearchParams();
   const search = params.get('search') || '';
   const category = params.get('category') || '';
   const sort = params.get('sort') || 'newest';
   const page = Number(params.get('page') || 1);
+
+  const gridRef = useRef(null);
+  const [limit, setLimit] = useState(8);
 
   const change = (next) =>
     setParams({
@@ -28,15 +47,39 @@ export default function ProductsPage() {
     });
 
   const q = useQuery({
-    queryKey: ['products', { search, category, sort, page }],
+    queryKey: ['products', { search, category, sort, page, limit }],
     queryFn: () =>
-      getProducts({ search, category, sort, page, limit: 8 }).then((r) => r.data),
+      getProducts({ search, category, sort, page, limit }).then((r) => r.data),
   });
 
   const cats = useQuery({
     queryKey: ['categories'],
     queryFn: () => getCategories().then((r) => r.data.items),
   });
+
+  // Re-measure the grid whenever it renders and on viewport/container resize.
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+    const measure = () => setLimit(getPageSize(grid));
+    measure();
+    window.addEventListener('resize', measure);
+    let ro;
+    if (typeof ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(measure);
+      ro.observe(grid);
+    }
+    return () => {
+      window.removeEventListener('resize', measure);
+      if (ro) ro.disconnect();
+    };
+  }, [q.data]);
+
+  // When the fitted page size changes, return to the first page.
+  useEffect(() => {
+    if (page !== 1) change({ page: 1 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [limit]);
 
   return (
     <main className="page container">
@@ -110,7 +153,7 @@ export default function ProductsPage() {
         </div>
       ) : (
         <>
-          <div className="product-grid">
+          <div className="product-grid" ref={gridRef}>
             {q.data.items.map((p) => (
               <Link className="product-card" to={`/products/${p.id}`} key={p.id}>
                 <Img p={p} />
@@ -147,4 +190,3 @@ export default function ProductsPage() {
     </main>
   );
 }
-

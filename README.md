@@ -13,7 +13,7 @@ This repository contains three areas:
 From the repository root:
 
 ```bash
-cd c:\Users\marwa\Desktop\project_1
+cd project_1
 npm install
 ```
 

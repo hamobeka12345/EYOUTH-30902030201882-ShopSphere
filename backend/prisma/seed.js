@@ -56,8 +56,21 @@ async function upsertProduct(name, data) {
   }
 }
 
+async function ensureCustomer() {
+  const email = 'customer@example.com';
+  const existing = await prisma.user.findUnique({ where: { email } });
+  if (!existing) {
+    const hashed = await bcrypt.hash('customer123', 10);
+    await prisma.user.create({
+      data: { name: 'Sample Customer', email, password: hashed, role: 'customer' }
+    });
+    console.log('Created customer user: customer@example.com / customer123');
+  }
+}
+
 async function main() {
   await ensureAdmin();
+  await ensureCustomer();
 
   const electronics = await upsertCategory('Electronics');
   const books = await upsertCategory('Books');

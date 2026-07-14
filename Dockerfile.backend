@@ -1,0 +1,16 @@
+FROM node:18
+WORKDIR /app
+
+# The Prisma schema lives at the repo root, outside backend/. The backend's
+# manual `postinstall` runs `prisma generate --schema=../prisma/schema.prisma`,
+# which resolves to /prisma (outside the image) and fails. Skip install scripts
+# and generate explicitly from the correct in-image path instead.
+COPY backend/package*.json ./
+COPY prisma/ ./prisma/
+RUN npm install --ignore-scripts
+
+COPY backend/ ./
+RUN npx prisma generate --schema=./prisma/schema.prisma
+
+EXPOSE 5000
+CMD ["npm", "start"]
