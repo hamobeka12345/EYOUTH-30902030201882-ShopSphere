@@ -2,14 +2,14 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
     branches: [ main ]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: production
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || github.ref == 'refs/heads/develop' && 'development' || 'staging' }}
 
     steps:
       - name: Checkout code
@@ -39,29 +39,29 @@ jobs:
           VITE_API_URL: ${{ vars.VITE_API_URL }}
           VITE_REVIEW_SERVICE_URL: ${{ vars.VITE_REVIEW_SERVICE_URL }}
 
-      - name: Deploy to Vercel (Production)
+      - name: Deploy frontend to Vercel
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
-          vercel-project-id: prj_0X4ETYGcVEZrQTrww0A3Qvm8dSFu
+          vercel-org-id: ${{ vars.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ vars.VERCEL_FRONTEND_PROJECT_ID }}
           working-directory: ./frontend
-          production: true
+          production: ${{ github.ref == 'refs/heads/main' }}
 
-      - name: Deploy backend to Vercel (Production)
+      - name: Deploy backend to Vercel
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
-          vercel-project-id: prj_aTQxTQsHYQSn8EsX9bPEmPUMzeJu
+          vercel-org-id: ${{ vars.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ vars.VERCEL_BACKEND_PROJECT_ID }}
           working-directory: ./backend
-          production: true
+          production: ${{ github.ref == 'refs/heads/main' }}
 
-      - name: Deploy review service to Vercel (Production)
+      - name: Deploy review service to Vercel
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
-          vercel-project-id: prj_S8s9i4dSdeXEEPSm0zcTlzKZpnbS
+          vercel-org-id: ${{ vars.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ vars.VERCEL_REVIEW_SERVICE_PROJECT_ID }}
           working-directory: ./review-service
-          production: true
+          production: ${{ github.ref == 'refs/heads/main' }}
