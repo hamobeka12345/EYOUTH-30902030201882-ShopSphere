@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
           cache-dependency-path: |
             backend/package-lock.json
@@ -46,7 +46,7 @@ jobs:
           vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
           vercel-project-id: prj_0X4ETYGcVEZrQTrww0A3Qvm8dSFu
           working-directory: ./frontend
-          production: ${{ github.ref == 'refs/heads/main' }}
+          vercel-args: ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
 
       - name: Deploy backend to Vercel
         uses: amondnet/vercel-action@v25
@@ -55,7 +55,7 @@ jobs:
           vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
           vercel-project-id: prj_aTQxTQsHYQSn8EsX9bPEmPUMzeJu
           working-directory: ./backend
-          production: ${{ github.ref == 'refs/heads/main' }}
+          vercel-args: ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
 
       - name: Deploy review service to Vercel
         uses: amondnet/vercel-action@v25
@@ -64,4 +64,4 @@ jobs:
           vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
           vercel-project-id: prj_S8s9i4dSdeXEEPSm0zcTlzKZpnbS
           working-directory: ./review-service
-          production: ${{ github.ref == 'refs/heads/main' }}
+          vercel-args: ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
