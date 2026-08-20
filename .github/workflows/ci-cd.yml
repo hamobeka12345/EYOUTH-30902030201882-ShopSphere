@@ -43,8 +43,8 @@ jobs:
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ vars.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ vars.VERCEL_FRONTEND_PROJECT_ID }}
+          vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
+          vercel-project-id: prj_0X4ETYGcVEZrQTrww0A3Qvm8dSFu
           working-directory: ./frontend
           production: ${{ github.ref == 'refs/heads/main' }}
 
@@ -52,8 +52,8 @@ jobs:
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ vars.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ vars.VERCEL_BACKEND_PROJECT_ID }}
+          vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
+          vercel-project-id: prj_aTQxTQsHYQSn8EsX9bPEmPUMzeJu
           working-directory: ./backend
           production: ${{ github.ref == 'refs/heads/main' }}
 
@@ -61,7 +61,7 @@ jobs:
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ vars.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ vars.VERCEL_REVIEW_SERVICE_PROJECT_ID }}
+          vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
+          vercel-project-id: prj_S8s9i4dSdeXEEPSm0zcTlzKZpnbS
           working-directory: ./review-service
           production: ${{ github.ref == 'refs/heads/main' }}
