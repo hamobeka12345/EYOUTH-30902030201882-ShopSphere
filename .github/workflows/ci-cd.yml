@@ -43,7 +43,7 @@ jobs:
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
           vercel-project-id: prj_0X4ETYGcVEZrQTrww0A3Qvm8dSFu
           working-directory: ./frontend
           production: true
@@ -52,7 +52,7 @@ jobs:
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
           vercel-project-id: prj_aTQxTQsHYQSn8EsX9bPEmPUMzeJu
           working-directory: ./backend
           production: true
@@ -61,7 +61,7 @@ jobs:
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
           vercel-project-id: prj_S8s9i4dSdeXEEPSm0zcTlzKZpnbS
           working-directory: ./review-service
           production: true
