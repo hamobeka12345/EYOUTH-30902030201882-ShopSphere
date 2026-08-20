@@ -44,7 +44,7 @@ jobs:
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-project-id: prj_0X4ETYGcVEZrQTrww0A3Qvm8dSFu
           working-directory: ./frontend
           production: true
 
@@ -53,7 +53,7 @@ jobs:
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_BACKEND_PROJECT_ID }}
+          vercel-project-id: prj_aTQxTQsHYQSn8EsX9bPEmPUMzeJu
           working-directory: ./backend
           production: true
 
@@ -62,6 +62,6 @@ jobs:
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_REVIEW_SERVICE_PROJECT_ID }}
+          vercel-project-id: prj_S8s9i4dSdeXEEPSm0zcTlzKZpnbS
           working-directory: ./review-service
           production: true
