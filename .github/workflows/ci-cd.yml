@@ -37,28 +37,28 @@ jobs:
         run: npm run build
 
       - name: Deploy frontend to Vercel
-        uses: amondnet/vercel-action@v28
+        uses: vercel/action@v1
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
-          vercel-project-id: prj_0X4ETYGcVEZrQTrww0A3Qvm8dSFu
+          token: ${{ secrets.VERCEL_TOKEN }}
+          org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
+          project-id: prj_0X4ETYGcVEZrQTrww0A3Qvm8dSFu
           working-directory: ./frontend
           production: ${{ github.ref == 'refs/heads/main' }}
 
       - name: Deploy backend to Vercel
-        uses: amondnet/vercel-action@v28
+        uses: vercel/action@v1
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
-          vercel-project-id: prj_aTQxTQsHYQSn8EsX9bPEmPUMzeJu
+          token: ${{ secrets.VERCEL_TOKEN }}
+          org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
+          project-id: prj_aTQxTQsHYQSn8EsX9bPEmPUMzeJu
           working-directory: ./backend
           production: ${{ github.ref == 'refs/heads/main' }}
 
       - name: Deploy review service to Vercel
-        uses: amondnet/vercel-action@v28
+        uses: vercel/action@v1
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
-          vercel-project-id: prj_S8s9i4dSdeXEEPSm0zcTlzKZpnbS
+          token: ${{ secrets.VERCEL_TOKEN }}
+          org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
+          project-id: prj_S8s9i4dSdeXEEPSm0zcTlzKZpnbS
           working-directory: ./review-service
           production: ${{ github.ref == 'refs/heads/main' }}
