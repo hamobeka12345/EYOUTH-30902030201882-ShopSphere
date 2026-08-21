@@ -35,33 +35,24 @@ jobs:
       - name: Build frontend
         working-directory: ./frontend
         run: npm run build
-        env:
-          VITE_API_URL: ${{ vars.VITE_API_URL }}
-          VITE_REVIEW_SERVICE_URL: ${{ vars.VITE_REVIEW_SERVICE_URL }}
+
+      - name: Install latest Vercel CLI
+        run: npm install -g vercel@latest
 
       - name: Deploy frontend to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
-          vercel-project-id: prj_0X4ETYGcVEZrQTrww0A3Qvm8dSFu
-          working-directory: ./frontend
-          vercel-args: ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
+        run: vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=prj_0X4ETYGcVEZrQTrww0A3Qvm8dSFu ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
+        working-directory: ./frontend
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy backend to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
-          vercel-project-id: prj_aTQxTQsHYQSn8EsX9bPEmPUMzeJu
-          working-directory: ./backend
-          vercel-args: ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
+        run: vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=prj_aTQxTQsHYQSn8EsX9bPEmPUMzeJu ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
+        working-directory: ./backend
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy review service to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
-          vercel-project-id: prj_S8s9i4dSdeXEEPSm0zcTlzKZpnbS
-          working-directory: ./review-service
-          vercel-args: ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
+        run: vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=prj_S8s9i4dSdeXEEPSm0zcTlzKZpnbS ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
+        working-directory: ./review-service
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}

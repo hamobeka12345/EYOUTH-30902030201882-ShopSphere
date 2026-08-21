@@ -38,3 +38,4 @@ Or with Docker: `docker compose up --build`. Frontend on :3000, API on :5000.
 cd backend && npm test      # Jest + Supertest
 cd frontend && npm test     # Vitest + RTL
 ```
+" "  
