@@ -36,29 +36,20 @@ jobs:
         working-directory: ./frontend
         run: npm run build
 
+      - name: Install latest Vercel CLI
+        run: npm install -g vercel@latest
+
       - name: Deploy frontend to Vercel
-        uses: vercel/action@v1
-        with:
-          token: ${{ secrets.VERCEL_TOKEN }}
-          org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
-          project-id: prj_0X4ETYGcVEZrQTrww0A3Qvm8dSFu
-          working-directory: ./frontend
-          production: ${{ github.ref == 'refs/heads/main' }}
+        run: vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --org-id=team_fD7XqvKuczK1sDWxGw4q8Qqa --project=prj_0X4ETYGcVEZrQTrww0A3Qvm8dSFu --cwd=./frontend ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy backend to Vercel
-        uses: vercel/action@v1
-        with:
-          token: ${{ secrets.VERCEL_TOKEN }}
-          org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
-          project-id: prj_aTQxTQsHYQSn8EsX9bPEmPUMzeJu
-          working-directory: ./backend
-          production: ${{ github.ref == 'refs/heads/main' }}
+        run: vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --org-id=team_fD7XqvKuczK1sDWxGw4q8Qqa --project=prj_aTQxTQsHYQSn8EsX9bPEmPUMzeJu --cwd=./backend ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy review service to Vercel
-        uses: vercel/action@v1
-        with:
-          token: ${{ secrets.VERCEL_TOKEN }}
-          org-id: team_fD7XqvKuczK1sDWxGw4q8Qqa
-          project-id: prj_S8s9i4dSdeXEEPSm0zcTlzKZpnbS
-          working-directory: ./review-service
-          production: ${{ github.ref == 'refs/heads/main' }}
+        run: vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --org-id=team_fD7XqvKuczK1sDWxGw4q8Qqa --project=prj_S8s9i4dSdeXEEPSm0zcTlzKZpnbS --cwd=./review-service ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
