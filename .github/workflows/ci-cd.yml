@@ -40,7 +40,7 @@ jobs:
         run: npm install -g vercel@latest
 
       - name: Deploy frontend to Vercel
-        run: vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=prj_0X4ETYGcVEZrQTrww0A3Qvm8dSFu ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
+        run: vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=prj_gmOqxgYBg0Fe4zIWClhHDdrg0CD8 ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
         working-directory: ./frontend
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -48,11 +48,5 @@ jobs:
       - name: Deploy backend to Vercel
         run: vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=prj_aTQxTQsHYQSn8EsX9bPEmPUMzeJu ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
         working-directory: ./backend
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-
-      - name: Deploy review service to Vercel
-        run: vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=prj_S8s9i4dSdeXEEPSm0zcTlzKZpnbS ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
-        working-directory: ./review-service
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
