@@ -37,17 +37,29 @@ export default function RateLimitBanner() {
   return (
     <div style={{
       position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      background: '#dc2626',
-      color: '#fff',
-      padding: '0.75rem 1rem',
-      textAlign: 'center',
+      top: '1rem',
+      left: '50%',
+      transform: 'translateX(-50%)',
       zIndex: 2000,
-      fontWeight: 600
+      maxWidth: '90%',
+      width: 'auto'
     }}>
-      Too many requests. Please wait {minutes}:{seconds.toString().padStart(2, '0')} before trying again.
+      <div style={{
+        background: '#f8d7da',
+        color: '#721c24',
+        border: '1px solid #f5c6cb',
+        padding: '12px',
+        borderRadius: '4px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        textAlign: 'center'
+      }}>
+        <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>
+          ⚠️ Too many requests
+        </div>
+        <div>
+          Please wait <span style={{ fontFamily: 'monospace', fontWeight: 'bold' }}>{minutes}m {seconds.toString().padStart(2, '0')}s</span> before trying again.
+        </div>
+      </div>
     </div>
   );
 }
