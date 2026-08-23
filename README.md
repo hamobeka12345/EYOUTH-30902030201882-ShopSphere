@@ -38,4 +38,8 @@ Or with Docker: `docker compose up --build`. Frontend on :3000, API on :5000.
 cd backend && npm test      # Jest + Supertest
 cd frontend && npm test     # Vitest + RTL
 ```
-" "  
+## Production
+
+- Frontend: https://frontend-lemon-zeta-43.vercel.app
+- Backend: https://backend-two-kappa-20.vercel.app
+- Health: https://backend-two-kappa-20.vercel.app/api/health  
