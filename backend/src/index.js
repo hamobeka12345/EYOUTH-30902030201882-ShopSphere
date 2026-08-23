@@ -27,8 +27,8 @@ const authLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res) => {
-    res.set('Retry-After', '60');
-    res.status(429).json({ message: 'Too many requests, please try again later.' });
+    res.set('Retry-After', '120');
+    res.status(429).json({ message: 'Too many requests, please try again later.', retryAfter: 120 });
   }
 });
 
@@ -38,23 +38,31 @@ const writeLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res) => {
-    res.set('Retry-After', '60');
-    res.status(429).json({ message: 'Too many requests, please try again later.' });
+    res.set('Retry-After', '120');
+    res.status(429).json({ message: 'Too many requests, please try again later.', retryAfter: 120 });
   }
 });
 
 const writeMethods = ['POST', 'PUT', 'DELETE'];
-const writePaths = ['/api/products', '/api/categories', '/api/cart', '/api/reviews'];
 
-app.use((req, res, next) => {
-  if (req.path.startsWith('/api/auth')) {
-    return authLimiter(req, res, next);
-  }
-  if (writeMethods.includes(req.method) && writePaths.some(p => req.path.startsWith(p))) {
-    return writeLimiter(req, res, next);
-  }
+app.use('/api/auth', authLimiter, authRoutes);
+
+app.use('/api/products', (req, res, next) => {
+  if (writeMethods.includes(req.method)) return writeLimiter(req, res, next);
   next();
-});
+}, productRoutes);
+app.use('/api/categories', (req, res, next) => {
+  if (writeMethods.includes(req.method)) return writeLimiter(req, res, next);
+  next();
+}, categoryRoutes);
+app.use('/api/cart', (req, res, next) => {
+  if (writeMethods.includes(req.method)) return writeLimiter(req, res, next);
+  next();
+}, cartRoutes);
+app.use('/api/reviews', (req, res, next) => {
+  if (writeMethods.includes(req.method)) return writeLimiter(req, res, next);
+  next();
+}, reviewRoutes);
 
 app.get('/api/ping', (req, res) => {
   res.json({ message: 'pong' });
@@ -73,12 +81,6 @@ app.post('/api/upload', uploadSingle, (req, res) => {
 app.use(handleUploadError);
 
 app.use('/uploads', express.static(require('path').resolve(__dirname, '..', 'uploads')));
-
-app.use('/api/auth', authRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/categories', categoryRoutes);
-app.use('/api/cart', cartRoutes);
-app.use('/api/reviews', reviewRoutes);
 
 app.use((err, req, res, next) => {
   logger.error(err.message || 'Internal server error', { stack: err.stack, method: req.method, path: req.originalUrl || req.url });

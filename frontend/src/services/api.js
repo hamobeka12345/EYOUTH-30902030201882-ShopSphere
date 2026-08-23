@@ -38,8 +38,25 @@ api.interceptors.response.use(
         // allow pages to handle auth state
       }
     }
+    if (error.response && error.response.status === 429) {
+      const retryAfter = error.response.data?.retryAfter || 120;
+      error.config.retryAfter = retryAfter;
+      error.config.retryAt = Date.now() + retryAfter * 1000;
+    }
     return Promise.reject(error);
   }
 );
+
+export function getRetryStatus() {
+  const retryAt = api.defaults.retryAt || null;
+  if (!retryAt) return { blocked: false, secondsLeft: 0 };
+  const secondsLeft = Math.max(0, Math.ceil((retryAt - Date.now()) / 1000));
+  return { blocked: secondsLeft > 0, secondsLeft };
+}
+
+export function clearRetryStatus() {
+  delete api.defaults.retryAt;
+  delete api.defaults.retryAfter;
+}
 
 export default api;

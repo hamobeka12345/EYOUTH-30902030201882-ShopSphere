@@ -7,11 +7,13 @@ import CartPage from './pages/CartPage';
 import LoginPage from './pages/LoginPage';
 import AdminPage from './pages/AdminPage';
 import Header from './components/Header';
+import RateLimitBanner from './components/RateLimitBanner';
 
 function App() {
   return (
     <AuthProvider>
       <div style={{ fontFamily: 'Arial, sans-serif' }}>
+        <RateLimitBanner />
         <BrowserRouter>
           <Header />
           <Routes>
