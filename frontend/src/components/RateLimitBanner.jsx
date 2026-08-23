@@ -17,10 +17,6 @@ export default function RateLimitBanner() {
   const [status, setStatus] = useState(getRetryStatus());
 
   useEffect(() => {
-    api.post('/auth/login', { email: 'ratecheck@test.com', password: 'ratecheck' }).catch(() => {});
-  }, []);
-
-  useEffect(() => {
     const interval = setInterval(() => {
       const next = getRetryStatus();
       setStatus(next);
