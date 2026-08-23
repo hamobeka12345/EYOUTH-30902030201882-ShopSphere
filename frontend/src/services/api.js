@@ -38,9 +38,19 @@ api.interceptors.response.use(
         const retryAfter = response.headers['retry-after'] || response.headers['ratelimit-reset'] || 120;
         api.defaults.retryAfter = Number(retryAfter);
         api.defaults.retryAt = Date.now() + Number(retryAfter) * 1000;
+        try {
+          localStorage.setItem('ratelimit_retryAt', String(api.defaults.retryAt));
+        } catch {
+          // ignore
+        }
       } else {
         delete api.defaults.retryAt;
         delete api.defaults.retryAfter;
+        try {
+          localStorage.removeItem('ratelimit_retryAt');
+        } catch {
+          // ignore
+        }
       }
     }
     return response;
@@ -57,6 +67,11 @@ api.interceptors.response.use(
       const retryAfter = error.response.data?.retryAfter || error.response.headers?.['retry-after'] || error.response.headers?.['ratelimit-reset'] || 120;
       api.defaults.retryAfter = Number(retryAfter);
       api.defaults.retryAt = Date.now() + Number(retryAfter) * 1000;
+      try {
+        localStorage.setItem('ratelimit_retryAt', String(api.defaults.retryAt));
+      } catch {
+        // ignore
+      }
     }
     return Promise.reject(error);
   }

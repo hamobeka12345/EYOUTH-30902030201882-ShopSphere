@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Kmjaj2009@
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
       POSTGRES_DB: ecommerce
     ports:
       - "5433:5432"
@@ -27,8 +27,8 @@ services:
       db:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgresql://postgres:Kmjaj2009%40@db:5432/ecommerce?schema=public
-      JWT_SECRET: supersecretkey
+      DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:${POSTGRES_PASSWORD:-changeme}@db:5432/ecommerce?schema=public}
+      JWT_SECRET: ${JWT_SECRET:-changeme}
       PORT: 5000
     ports:
       - "5000:5000"
