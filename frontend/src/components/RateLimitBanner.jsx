@@ -17,14 +17,17 @@ export default function RateLimitBanner() {
   const [status, setStatus] = useState(getRetryStatus());
 
   useEffect(() => {
-    if (!status.blocked) return;
+    api.post('/auth/login', { email: 'ratecheck@test.com', password: 'ratecheck' }).catch(() => {});
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       const next = getRetryStatus();
       setStatus(next);
       if (!next.blocked) clearInterval(interval);
     }, 1000);
     return () => clearInterval(interval);
-  }, [status.blocked]);
+  }, []);
 
   if (!status.blocked) return null;
 
