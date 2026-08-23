@@ -1,4 +1,13 @@
-import api from './api';
+import axios from 'axios';
 
-export const getReviews = (productId) => api.get(`/reviews/${productId}`);
-export const createReview = (productId, data) => api.post(`/reviews/${productId}`, data);
+const REVIEW_API_URL = 'https://review-service-swart.vercel.app';
+
+const reviewApi = axios.create({
+  baseURL: REVIEW_API_URL,
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+
+export const getReviews = (productId) => reviewApi.get(`/products/${productId}/reviews`);
+export const createReview = (productId, data) => reviewApi.post(`/products/${productId}/reviews`, data);

@@ -10,7 +10,6 @@ const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const cartRoutes = require('./routes/cartRoutes');
-const reviewRoutes = require('./routes/reviewRoutes');
 const { uploadSingle, handleUploadError } = require('./middleware/upload');
 
 const app = express();
@@ -84,10 +83,6 @@ app.use('/api/cart', (req, res, next) => {
   if (writeMethods.includes(req.method)) return writeLimiter(req, res, next);
   next();
 }, cartRoutes);
-app.use('/api/reviews', (req, res, next) => {
-  if (writeMethods.includes(req.method)) return writeLimiter(req, res, next);
-  next();
-}, reviewRoutes);
 
 app.get('/api/ping', (req, res) => {
   res.json({ message: 'pong' });
