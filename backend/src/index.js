@@ -45,6 +45,12 @@ const writeLimiter = rateLimit({
 
 const writeMethods = ['POST', 'PUT', 'DELETE'];
 
+app.use((req, res, next) => {
+  res.setHeader('X-RateLimit-Limit', '20');
+  res.setHeader('X-RateLimit-Window', '120');
+  next();
+});
+
 app.use('/api/auth', authLimiter, authRoutes);
 
 app.use('/api/products', (req, res, next) => {

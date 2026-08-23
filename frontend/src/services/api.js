@@ -30,7 +30,21 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    const remaining = response.headers['ratelimit-remaining'] || response.headers['x-ratelimit-remaining'];
+    if (remaining !== undefined) {
+      const remainingNum = Number(remaining);
+      if (remainingNum === 0) {
+        const retryAfter = response.headers['retry-after'] || response.headers['ratelimit-reset'] || 120;
+        api.defaults.retryAfter = Number(retryAfter);
+        api.defaults.retryAt = Date.now() + Number(retryAfter) * 1000;
+      } else {
+        delete api.defaults.retryAt;
+        delete api.defaults.retryAfter;
+      }
+    }
+    return response;
+  },
   (error) => {
     if (error.response && error.response.status === 401) {
       setToken(null);
@@ -39,9 +53,9 @@ api.interceptors.response.use(
       }
     }
     if (error.response && error.response.status === 429) {
-      const retryAfter = error.response.data?.retryAfter || 120;
-      error.config.retryAfter = retryAfter;
-      error.config.retryAt = Date.now() + retryAfter * 1000;
+      const retryAfter = error.response.data?.retryAfter || error.response.headers?.['retry-after'] || error.response.headers?.['ratelimit-reset'] || 120;
+      api.defaults.retryAfter = Number(retryAfter);
+      api.defaults.retryAt = Date.now() + Number(retryAfter) * 1000;
     }
     return Promise.reject(error);
   }
