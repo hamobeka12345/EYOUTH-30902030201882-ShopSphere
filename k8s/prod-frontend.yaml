@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: shopsphere-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: frontend-dist
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: frontend-dist
+        configMap:
+          name: frontend-dist
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: shopsphere-prod
+spec:
+  selector:
+    app: frontend
+  ports:
+  - port: 80
+    targetPort: 80
+  type: ClusterIP

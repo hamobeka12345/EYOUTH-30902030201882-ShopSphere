@@ -1,6 +1,7 @@
 const path = require('path');
 const dotenvResult = require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
-console.log('dotenv loaded:', dotenvResult.parsed ? true : false, 'DATABASE_URL exists:', !!process.env.DATABASE_URL);
+const logger = require('./utils/logger');
+logger.info('dotenv loaded', { exists: !!dotenvResult.parsed, databaseUrlExists: !!process.env.DATABASE_URL });
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -18,6 +19,7 @@ const PORT = process.env.PORT || 5000;
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use(logger.http);
 
 const authLimiter = rateLimit({
   windowMs: 2 * 60 * 1000,
@@ -79,12 +81,13 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/reviews', reviewRoutes);
 
 app.use((err, req, res, next) => {
-  console.error('API error:', err.stack || err);
+  logger.error(err.message || 'Internal server error', { stack: err.stack, method: req.method, path: req.originalUrl || req.url });
   res.status(500).json({ message: err.message || 'Internal server error' });
 });
 
 if (require.main === module) {
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  logger.info('Server starting', { port: PORT });
+  app.listen(PORT, () => logger.info('Server running', { port: PORT }));
 }
 
 module.exports = app;
