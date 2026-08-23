@@ -17,6 +17,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
+  'https://frontend-lemon-zeta-43.vercel.app',
   'https://eyouth-30902030201882-shopsphere-frontend-njnsysccr.vercel.app',
   'http://localhost:3000',
   'http://localhost:5173'
