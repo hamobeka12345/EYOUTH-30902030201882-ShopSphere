@@ -49,8 +49,9 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       setToken(null);
       if (typeof window !== 'undefined' && !window.location.pathname.startsWith('/login')) {
-        // allow pages to handle auth state
+        window.location.href = '/login';
       }
+      return Promise.resolve();
     }
     if (error.response && error.response.status === 429) {
       const retryAfter = error.response.data?.retryAfter || error.response.headers?.['retry-after'] || error.response.headers?.['ratelimit-reset'] || 120;
