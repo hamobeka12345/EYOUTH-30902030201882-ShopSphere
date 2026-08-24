@@ -116,20 +116,20 @@ export default function ProductDetailPage() {
           <p className="notice" style={{ marginTop: 12 }}>{addToCartMsg}</p>
         )}
 
-        <section style={{ marginTop: 32, padding: '20px', background: '#f9fafb', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
-          <h2 style={{ margin: '0 0 16px', fontSize: '20px', color: '#111827' }}>Reviews</h2>
-          {reviewsStatus === 'loading' && <p style={{ color: '#6b7280' }}>Loading reviews...</p>}
-          {reviewsStatus === 'error' && <p className="notice" style={{ marginTop: 0 }}>Could not load reviews.</p>}
-          {reviews.length === 0 && reviewsStatus === 'loaded' && <p style={{ color: '#6b7280' }}>No reviews yet.</p>}
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0, maxHeight: 180, overflowY: 'auto' }}>
+        <section style={{ marginTop: 16, padding: '8px', background: '#f9fafb', borderRadius: 8, border: '1px solid #e5e7eb' }}>
+          <h2 style={{ margin: '0 0 6px', fontSize: 14, color: '#111827' }}>Reviews</h2>
+          {reviewsStatus === 'loading' && <p style={{ color: '#6b7280', fontSize: 12 }}>Loading reviews...</p>}
+          {reviewsStatus === 'error' && <p className="notice" style={{ marginTop: 0, fontSize: 12 }}>Could not load reviews.</p>}
+          {reviews.length === 0 && reviewsStatus === 'loaded' && <p style={{ color: '#6b7280', fontSize: 12 }}>No reviews yet.</p>}
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, maxHeight: 100, overflowY: 'auto' }}>
             {reviews.map((r) => (
-              <li key={r.id} style={{ marginBottom: 16, padding: 16, background: '#ffffff', borderRadius: 8, border: '1px solid #e5e7eb' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                  <strong style={{ color: '#111827' }}>Rating: {r.rating}/5</strong>
-                  <span style={{ color: '#f59e0b', fontSize: '14px' }}>{'★'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}</span>
+              <li key={r.id} style={{ marginBottom: 4, padding: 6, background: '#ffffff', borderRadius: 6, border: '1px solid #e5e7eb' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 2 }}>
+                  <strong style={{ color: '#111827', fontSize: 12 }}>Rating: {r.rating}/5</strong>
+                  <span style={{ color: '#f59e0b', fontSize: '11px' }}>{'★'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}</span>
                 </div>
-                <p style={{ margin: '0 0 8px', color: '#374151', lineHeight: 1.5 }}>{r.comment}</p>
-                <small style={{ color: '#9ca3af', fontSize: '12px' }}>{new Date(r.createdAt).toLocaleString()}</small>
+                <p style={{ margin: '0 0 3px', color: '#374151', lineHeight: 1.3, fontSize: 12 }}>{r.comment}</p>
+                <small style={{ color: '#9ca3af', fontSize: '10px' }}>{new Date(r.createdAt).toLocaleString()}</small>
               </li>
             ))}
           </ul>
