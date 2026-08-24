@@ -42,9 +42,9 @@ jobs:
       - name: Deploy frontend to Vercel
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=eyouth-30902030201882-shopsphere-frontend --prod
+            vercel deploy --yes --force --token=${{ secrets.VERCEL_TOKEN }} --project=eyouth-30902030201882-shopsphere-frontend --prod
           else
-            vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=eyouth-30902030201882-shopsphere-frontend
+            vercel deploy --yes --force --token=${{ secrets.VERCEL_TOKEN }} --project=eyouth-30902030201882-shopsphere-frontend
           fi
         working-directory: ./frontend
         env:
@@ -53,9 +53,9 @@ jobs:
       - name: Deploy backend to Vercel
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=eyouth-30902030201882-shopsphere-backend --prod
+            vercel deploy --yes --force --token=${{ secrets.VERCEL_TOKEN }} --project=eyouth-30902030201882-shopsphere-backend --prod
           else
-            vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=eyouth-30902030201882-shopsphere-backend
+            vercel deploy --yes --force --token=${{ secrets.VERCEL_TOKEN }} --project=eyouth-30902030201882-shopsphere-backend
           fi
         working-directory: ./backend
         env:
