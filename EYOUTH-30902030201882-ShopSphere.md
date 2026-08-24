@@ -41,5 +41,9 @@ cd frontend && npm test     # Vitest + RTL
 ## Production
 
 - Frontend: https://frontend-lemon-zeta-43.vercel.app
-- Backend: https://backend-two-kappa-20.vercel.app
-- Health: https://backend-two-kappa-20.vercel.app/api/health  
+- Backend: https://backend-iota-ashen-33.vercel.app
+- Health: https://backend-iota-ashen-33.vercel.app/api/health
+
+### Logs
+
+Structured logs are emitted by the backend with `timestamp`, `level` (`INFO`/`WARN`/`ERROR`/`DEBUG`), and request/error metadata. In production, logs are read from the Vercel dashboard for each deployment (https://vercel.com/joumanakarimmoh-2965s-projects/eyouth-30902030201882-shopsphere-backend/logs).  
