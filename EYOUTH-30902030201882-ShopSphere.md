@@ -77,4 +77,10 @@ If a deployment to production fails or causes an outage, use the following steps
 
 5. **Fix forward**
    - Once production is stable, fix the issue in code.
-   - Trigger a new pipeline run to deploy the corrected version.  
+   - Trigger a new pipeline run to deploy the corrected version.
+
+## Project Links
+
+- **Application:** https://frontend-lemon-zeta-43.vercel.app
+- **Review Service:** https://eyouth-30902030201882-shopsphere-review-service-8c4b35waa.vercel.app
+- **Repository:** https://github.com/joumana-s/EYOUTH-30902030201882-ShopSphere  
