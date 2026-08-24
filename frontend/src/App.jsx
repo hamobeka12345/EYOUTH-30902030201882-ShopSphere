@@ -10,6 +10,7 @@ import Header from './components/Header';
 import RateLimitBanner from './components/RateLimitBanner';
 
 function App() {
+  throw new Error('ROLLBACK TEST - intentional failure');
   return (
     <AuthProvider>
       <div style={{ fontFamily: 'Arial, sans-serif' }}>
