@@ -2,14 +2,18 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, staging ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop, staging ]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: ${{ github.ref == 'refs/heads/main' && 'production' || github.ref == 'refs/heads/develop' && 'development' || 'staging' }}
+    environment: ${{ 
+      github.ref == 'refs/heads/main' && 'production' || 
+      github.ref == 'refs/heads/staging' && 'staging' || 
+      'development' 
+    }}
 
     steps:
       - name: Checkout code
@@ -40,13 +44,23 @@ jobs:
         run: npm install -g vercel@latest
 
       - name: Deploy frontend to Vercel
-        run: vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=prj_gmOqxgYBg0Fe4zIWClhHDdrg0CD8 ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=eyouth-30902030201882-shopsphere-frontend --prod
+          else
+            vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=eyouth-30902030201882-shopsphere-frontend
+          fi
         working-directory: ./frontend
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy backend to Vercel
-        run: vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=prj_aTQxTQsHYQSn8EsX9bPEmPUMzeJu ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=eyouth-30902030201882-shopsphere-backend --prod
+          else
+            vercel deploy --yes --token=${{ secrets.VERCEL_TOKEN }} --project=eyouth-30902030201882-shopsphere-backend
+          fi
         working-directory: ./backend
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
