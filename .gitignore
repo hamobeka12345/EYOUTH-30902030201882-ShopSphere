@@ -1,6 +1,9 @@
 # Node modules
 node_modules
 
+# Review service (deployed separately on Vercel, not in git)
+review-service/
+
 # Keep environment variables out of version control
 .env
 
