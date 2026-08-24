@@ -17,11 +17,13 @@ const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
   'https://frontend-lemon-zeta-43.vercel.app',
+  'https://eyouth-30902030201882-shopsphere.vercel.app',
+  'https://eyouth-30902030201882-shopsphere-joumanakarimmoh-2965s-projects.vercel.app',
   'http://localhost:3000',
   'http://localhost:5173'
 ];
 
-const vercelOriginPattern = /^https:\/\/frontend-.*\.vercel\.app/;
+const vercelOriginPattern = /^https:\/\/.*\.vercel\.app$/;
 
 const corsOptions = {
   origin: (origin, callback) => {
