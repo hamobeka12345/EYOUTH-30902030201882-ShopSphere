@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const REVIEW_API_URL = 'https://eyouth-30902030201882-shopsphere-review-service-1dtuu33ck.vercel.app';
+const REVIEW_API_URL = 'https://eyouth-30902030201882-shopsphere-review-service-8c4b35waa.vercel.app';
 
 const reviewApi = axios.create({
   baseURL: REVIEW_API_URL,
