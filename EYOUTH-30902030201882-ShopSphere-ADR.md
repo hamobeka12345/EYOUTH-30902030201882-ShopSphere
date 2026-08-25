@@ -1,7 +1,7 @@
 # Architecture Decision Record — ShopSphere
 
 **Student:** EYOUTH-30902030201882  
-**Date:** 2026-08-21  
+**Date:** 2026-08-25  
 **Status:** Accepted
 
 ---
@@ -12,28 +12,26 @@
 
 **Why:** Reviews have their own data model and do not depend on products, cart, or auth. Separating them allows the review service to scale independently, fail without taking down the main app, and be updated without redeploying the entire backend.
 
-**Result:** The review service runs at `https://review-service-eight.vercel.app`. The main backend proxies review requests through `/api/reviews/*`. The frontend is unaware of the change and continues calling the same `/api/reviews` paths.
+**Result:** The review service runs at `https://eyouth-30902030201882-shopsphere-review-service.vercel.app`. The frontend calls it directly via `reviewService.js` using REST endpoints (`/products/:productId/reviews`). The main backend is unaffected by review traffic.
 
 ---
 
-## 2. Serverless Workload: Daily Summary Cron
+## 2. Serverless Workload: Review Service
 
-**What was moved:** The daily background job that collects product statistics, pricing, and review counts was moved from the main backend to a serverless function.
+**What was moved:** The review API was deployed as a Vercel serverless function instead of running inside the main Express backend.
 
-**Why:** The job runs once per day for a short duration. Serverless is cost-effective because there is no always-on server to pay for. The task is stateless and fits naturally into a scheduled function.
+**Why:** Review traffic is independent from the main product, cart, and auth workflows. Serverless execution lets the review service scale per-request without reserving always-on infrastructure, and failures remain isolated from the main application.
 
-**Result:** The function is deployed on Vercel and triggered daily via Vercel Cron at `/api/cron/daily-summary`. It runs separately from user requests and does not compete for resources during peak traffic.
-
-**Review section role:** The review section in the frontend displays submitted reviews on each product page and allows authenticated users to submit new reviews. It calls `/api/reviews/:id` on the backend, which proxies requests to the standalone review service. This keeps review traffic separate from the main product and cart workflows.
+**Result:** The function is deployed on Vercel at `https://eyouth-30902030201882-shopsphere-review-service.vercel.app`. It executes on demand, outside the main application, and persists reviews to Supabase via the REST API.
 
 ---
 
 ## 3. Reasons Behind Both Decisions
 
-Both the review service extraction and the cron job move share the same goal: improve the main application's reliability and resource usage.
+Both the review service extraction and the serverless deployment share the same goal: improve the main application's reliability and resource usage.
 
 - The review service was extracted because review traffic is independent and could overwhelm the main API if kept together. Isolating it prevents one feature from affecting the whole system.
 
-- The daily cron was moved to serverless because it is a periodic, lightweight task that does not need a dedicated server. Running it on serverless reduces cost and eliminates background work from competing with user-facing requests.
+- The review workload was moved to serverless because it is lightweight, request-driven, and does not need a dedicated server. Running it on Vercel reduces cost and keeps background review work from competing with user-facing requests.
 
 Together, these changes make the main backend more focused, more resilient, and easier to maintain.

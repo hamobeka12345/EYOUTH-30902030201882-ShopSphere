@@ -91,7 +91,7 @@ app.get('/api/ping', (req, res) => {
 });
 
 app.get('/api/health', (req, res) => {
-  res.status(500).json({ status: 'error', message: 'ROLLBACK TEST - simulated outage' });
+  res.json({ status: 'ok', timestamp: new Date().toISOString(), studentId: 'EYOUTH-30902030201882', service: 'ShopSphere', pipeline: 'github-actions' });
 });
 
 app.post('/api/upload', uploadSingle, (req, res) => {
