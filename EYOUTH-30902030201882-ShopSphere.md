@@ -9,6 +9,7 @@ ShopSphere is a full-stack e-commerce platform built with Vite + React frontend,
 - **Application:** https://eyouth-30902030201882-shopsphere-frontend.vercel.app
 - **Review Service:** https://eyouth-30902030201882-shopsphere-review-service.vercel.app
 - **Repository:** https://github.com/hamobeka12345/EYOUTH-30902030201882-ShopSphere
+- **Pipeline:** https://github.com/hamobeka12345/EYOUTH-30902030201882-ShopSphere/actions
 - **Backend:** https://eyouth-30902030201882-shopsphere-backend.vercel.app
 - **Health:** https://eyouth-30902030201882-shopsphere-backend.vercel.app/api/health
 - **UptimeRobot Status:** https://stats.uptimerobot.com/Y19DNZdVWI
