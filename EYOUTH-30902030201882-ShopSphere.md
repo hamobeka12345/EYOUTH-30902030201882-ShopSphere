@@ -1,24 +1,37 @@
-# E-Commerce Platform
+# EYOUTH-30902030201882-ShopSphere
 
-Full-stack e-commerce app: Vite + React frontend, Express + Prisma backend, PostgreSQL.
+## Project Summary
 
-## Structure
+ShopSphere is a full-stack e-commerce platform built with Vite + React frontend, Express + Prisma backend, and PostgreSQL on Supabase. The review feature is extracted into an independent serverless microservice deployed on Vercel, communicating with the frontend via REST. The project includes CI/CD automation, structured logging, health monitoring with UptimeRobot, and a documented rollback plan.
 
-- `backend/` — Express API (Prisma, JWT auth, Multer uploads)
-- `frontend/` — Vite + React app
-- `prisma/` — schema and migrations
+## Links
 
-## Setup
+- **Application:** https://eyouth-30902030201882-shopsphere-frontend.vercel.app
+- **Review Service:** https://eyouth-30902030201882-shopsphere-review-service.vercel.app
+- **Repository:** https://github.com/hamobeka12345/EYOUTH-30902030201882-ShopSphere
+- **Backend:** https://eyouth-30902030201882-shopsphere-backend.vercel.app
+- **Health:** https://eyouth-30902030201882-shopsphere-backend.vercel.app/api/health
+- **UptimeRobot Status:** https://stats.uptimerobot.com/Y19DNZdVWI
+
+## Documentation
+
+- **EYOUTH-30902030201882-ShopSphere.md** — Main project documentation with setup instructions, production URLs, and project links.
+- **EYOUTH-30902030201882-ShopSphere-rollback-plan.md** — Step-by-step rollback procedure for failed releases, triggered by UptimeRobot monitoring.
+- **EYOUTH-30902030201882-ShopSphere-Structured-Logging.md** — Monitoring details including health endpoint behavior and where production logs are read.
+- **EYOUTH-30902030201882-ShopSphere-service-classification.md** — Cloud service classifications for frontend, backend, and database with one-line reasons.
+- **EYOUTH-30902030201882-ShopSphere-ADR.md** — Architecture Decision Record covering review service extraction and serverless deployment rationale.
+- **EYOUTH-30902030201882-ShopSphere-project-links.md** — Dedicated document holding the application, review service, and repository URLs.
+- **EYOUTH-30902030201882-ShopSphere.svg** — Architecture diagram showing the frontend, backend, database, and traffic paths.
+
+## Instructions and Installation
 
 ```bash
-npm install            # root (concurrently + prisma)
+npm install
 cd backend && npm install
 cd ../frontend && npm install
 ```
 
-Make a `.env` at the repo root (see `.env.example`) with `DATABASE_URL`, `JWT_SECRET`, and `PORT`.
-
-Run locally (needs a running PostgreSQL):
+Create a `.env` at the repo root with `DATABASE_URL`, `JWT_SECRET`, and `PORT`.
 
 ```bash
 cd backend
@@ -31,23 +44,3 @@ npm run dev
 ```
 
 Or with Docker: `docker compose up --build`. Frontend on :3000, API on :5000.
-
-## Tests
-
-```bash
-cd backend && npm test      # Jest + Supertest
-cd frontend && npm test     # Vitest + RTL
-```
-## Production
-
-- Frontend: https://eyouth-30902030201882-shopsphere-frontend.vercel.app
-- Backend: https://eyouth-30902030201882-shopsphere-backend.vercel.app
-- Health: https://eyouth-30902030201882-shopsphere-backend.vercel.app/api/health
-- Review Service: https://eyouth-30902030201882-shopsphere-review-service.vercel.app
-- UptimeRobot Status: https://stats.uptimerobot.com/Y19DNZdVWI
-
-## Project Links
-
-- **Application:** https://eyouth-30902030201882-shopsphere-frontend.vercel.app
-- **Review Service:** https://eyouth-30902030201882-shopsphere-review-service.vercel.app
-- **Repository:** https://github.com/hamobeka12345/EYOUTH-30902030201882-ShopSphere  
