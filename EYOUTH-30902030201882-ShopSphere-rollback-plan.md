@@ -4,6 +4,8 @@
 
 UptimeRobot monitors `https://eyouth-30902030201882-shopsphere-backend.vercel.app/api/health` every few minutes. A non-200 response, timeout, or missing `status: "ok"` means the release failed. UptimeRobot sends alerts via email, SMS, or webhook when the endpoint goes down.
 
+Public monitoring status page: https://stats.uptimerobot.com/Y19DNZdVWI
+
 Before rolling back: check Vercel logs for the current production deployment, confirm the failure originated in the latest release, and verify the previous deployment was healthy.
 
 ## Recovery

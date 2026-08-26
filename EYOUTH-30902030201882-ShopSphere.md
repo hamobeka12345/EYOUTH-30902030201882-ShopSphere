@@ -44,6 +44,7 @@ cd frontend && npm test     # Vitest + RTL
 - Backend: https://eyouth-30902030201882-shopsphere-backend.vercel.app
 - Health: https://eyouth-30902030201882-shopsphere-backend.vercel.app/api/health
 - Review Service: https://eyouth-30902030201882-shopsphere-review-service.vercel.app
+- UptimeRobot Status: https://stats.uptimerobot.com/Y19DNZdVWI
 
 ## Project Links
 
