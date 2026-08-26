@@ -90,6 +90,10 @@ app.get('/api/ping', (req, res) => {
   res.json({ message: 'pong' });
 });
 
+app.get('/', (req, res) => {
+  res.json({ service: 'ShopSphere Backend', status: 'running', health: '/api/health' });
+});
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString(), studentId: 'EYOUTH-30902030201882', service: 'ShopSphere', pipeline: 'github-actions' });
 });
