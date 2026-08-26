@@ -40,13 +40,13 @@ cd frontend && npm test     # Vitest + RTL
 ```
 ## Production
 
-- Frontend: https://eyouth-30902030201882-shopsphere-fr.vercel.app
-- Backend: https://eyouth-30902030201882-shopsphere-ba.vercel.app
-- Health: https://eyouth-30902030201882-shopsphere-ba.vercel.app/api/health
-- Review Service: https://eyouth-30902030201882-shopsphere-re-nine.vercel.app
+- Frontend: https://eyouth-30902030201882-shopsphere-frontend.vercel.app
+- Backend: https://eyouth-30902030201882-shopsphere-backend.vercel.app
+- Health: https://eyouth-30902030201882-shopsphere-backend.vercel.app/api/health
+- Review Service: https://eyouth-30902030201882-shopsphere-review-service.vercel.app
 
 ## Project Links
 
-- **Application:** https://eyouth-30902030201882-shopsphere-fr.vercel.app
-- **Review Service:** https://eyouth-30902030201882-shopsphere-re-nine.vercel.app
+- **Application:** https://eyouth-30902030201882-shopsphere-frontend.vercel.app
+- **Review Service:** https://eyouth-30902030201882-shopsphere-review-service.vercel.app
 - **Repository:** https://github.com/hamobeka12345/EYOUTH-30902030201882-ShopSphere  

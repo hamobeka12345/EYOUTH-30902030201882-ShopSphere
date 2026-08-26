@@ -12,7 +12,7 @@
 
 **Why:** Reviews have their own data model and do not depend on products, cart, or auth. Separating them allows the review service to scale independently, fail without taking down the main app, and be updated without redeploying the entire backend.
 
-**Result:** The review service runs at `https://eyouth-30902030201882-shopsphere-re-nine.vercel.app`. The frontend calls it directly via `reviewService.js` using REST endpoints (`/products/:productId/reviews`). The main backend is unaffected by review traffic.
+**Result:** The review service runs at `https://eyouth-30902030201882-shopsphere-review-service.vercel.app`. The frontend calls it directly via `reviewService.js` using REST endpoints (`/products/:productId/reviews`). The main backend is unaffected by review traffic.
 
 ---
 
@@ -22,7 +22,7 @@
 
 **Why:** Review traffic is independent from the main product, cart, and auth workflows. Serverless execution lets the review service scale per-request without reserving always-on infrastructure, and failures remain isolated from the main application.
 
-**Result:** The function is deployed on Vercel at `https://eyouth-30902030201882-shopsphere-re-nine.vercel.app`. It executes on demand, outside the main application, and persists reviews to Supabase via the REST API.
+**Result:** The function is deployed on Vercel at `https://eyouth-30902030201882-shopsphere-review-service.vercel.app`. It executes on demand, outside the main application, and persists reviews to Supabase via the REST API.
 
 ---
 
