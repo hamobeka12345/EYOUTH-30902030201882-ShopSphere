@@ -5,7 +5,9 @@ node_modules
 review-service/
 
 # Keep environment variables out of version control
-.env
+.env*
+.env.local
+.env.local.vercel
 
 # Generated Prisma client
 /generated/prisma
